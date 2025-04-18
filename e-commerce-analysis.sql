@@ -8,7 +8,7 @@ FROM OrderItems;
  -- 1.2 What is the total revenue generated per year?
  SELECT 
     FORMAT(o.order_purchase_timestamp, 'yyyy') AS order_year,
-    SUM(oi.price + oi.shipping_charges) AS total_revenue
+    ROUND(SUM(oi.price + oi.shipping_charges),2) AS total_revenue
 FROM Orders o
 JOIN OrderItems oi ON o.order_id = oi.order_id
 WHERE o.order_status = 'delivered'
@@ -18,7 +18,7 @@ ORDER BY total_revenue DESC;
 -- 1.3 How much revenue generated according to month?
 SELECT 
     FORMAT(o.order_purchase_timestamp, 'MM') AS order_month,
-    SUM(oi.price + oi.shipping_charges) AS total_revenue
+    ROUND(SUM(oi.price + oi.shipping_charges),2) AS total_revenue
 FROM Orders o
 JOIN OrderItems oi ON o.order_id = oi.order_id
 WHERE o.order_status = 'delivered'
@@ -122,7 +122,7 @@ JOIN Customers c ON o.customer_id = c.customer_id
 GROUP BY c.customer_state
 ORDER BY total_revenue DESC;
 
--- 2.6 List of top 10 city by higher revenue
+-- 2.7 List of top 10 city by higher revenue
 SELECT TOP 10
     c.customer_city,
     ROUND(SUM(oi.price + oi.shipping_charges), 2) AS total_revenue
@@ -145,20 +145,20 @@ SELECT
 FROM Orders
 GROUP BY order_status;
 
--- 3.1 What’s the average delivery time vs estimated delivery?
+-- 3.3 What’s the average delivery time vs estimated delivery?
 SELECT 
     AVG(DATEDIFF(DAY, order_purchase_timestamp, order_delivered_timestamp)) AS avg_delivery_days,
     AVG(DATEDIFF(DAY, order_purchase_timestamp, order_estimated_delivery_date)) AS avg_estimated_days
 FROM Orders
 WHERE order_status = 'delivered';
 
--- 3.2 What % of orders are delivered late?
+-- 3.4 What % of orders are delivered late?
 SELECT 
     CAST(SUM(CASE WHEN order_delivered_timestamp > order_estimated_delivery_date THEN 1 ELSE 0 END) * 100.0 / COUNT(*) AS DECIMAL(5,2)) AS late_delivery_percentage
 FROM Orders
 WHERE order_status = 'delivered';
 
--- 3.3 Delivery delay by product category
+-- 3.5 Delivery delay by product category
 SELECT 
     p.product_category_name,
     AVG(DATEDIFF(DAY, o.order_estimated_delivery_date, o.order_delivered_timestamp)) AS avg_delay_days
@@ -169,7 +169,7 @@ WHERE o.order_delivered_timestamp > o.order_estimated_delivery_date
 GROUP BY p.product_category_name
 ORDER BY avg_delay_days DESC;
 
--- 3.4 Which sellers have the highest percentage of late deliveries?
+-- 3.6 Which sellers have the highest percentage of late deliveries?
 SELECT 
     oi.seller_id,
     COUNT(*) AS total_orders,
@@ -215,25 +215,25 @@ FROM ProductSales ps
 JOIN Products p ON ps.product_id = p.product_id
 ORDER BY ps.total_sold DESC;
 
--- 4.4 Avg shipping charge by product volume
+-- 4.5 Avg shipping charge by product volume
 SELECT 
     p.product_id,
     p.product_category_name,
     (p.product_length_cm * p.product_height_cm * p.product_width_cm) AS volume_cm,
-    ROUND(AVG(oi.shipping_charges),2) AS avg_shipping
+    ROUND(AVG(oi.shipping_charges),2) AS avg_shipping_charge
 FROM Products p
 JOIN OrderItems oi ON p.product_id = oi.product_id
 GROUP BY p.product_id, p.product_category_name, p.product_length_cm, p.product_height_cm, p.product_width_cm
-ORDER BY avg_shipping DESC;
+ORDER BY avg_shipping_charge DESC;
 
--- 4.4 Which product category has the highest average shipping charge?
+-- 4.6 Which product category has the highest average shipping charge?
 SELECT 
     p.product_category_name,
-    AVG(oi.shipping_charges) AS avg_shipping
+    ROUND(AVG(oi.shipping_charges),2) AS avg_shipping_charge
 FROM Products p
 JOIN OrderItems oi ON p.product_id = oi.product_id
 GROUP BY p.product_category_name
-ORDER BY avg_shipping DESC;
+ORDER BY avg_shipping_charge DESC;
 
 -- 5. Payment Insights -----------------------------------------------------
 
@@ -274,4 +274,4 @@ SELECT
 FROM Payments p
 JOIN Orders o ON p.order_id = o.order_id
 GROUP BY o.order_status, p.payment_type
-ORDER BY o.order_status, payment_count DESC;
+ORDER BY o.order_status DESC, payment_count DESC;
