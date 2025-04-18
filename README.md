@@ -1,5 +1,5 @@
 # 🛒 E-commerce Sales Analysis: SQL + Python Project
-
+![ER Diagram](https://github.com/ak-2323/E-commerce-Sales-Analysis/blob/main/er-diagram.png)
 ## Project Overview
 
 This project is a complete end-to-end data analysis case study based on real-world e-commerce data. Using Microsoft SQL Server for querying and Python for data handling, the project explores key business questions across various areas including revenue, customer behavior, delivery performance, product analytics, and payments. This project is ideal for analysts aiming to strengthen their SQL querying skills using practical datasets.
