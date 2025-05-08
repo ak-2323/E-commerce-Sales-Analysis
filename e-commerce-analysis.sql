@@ -1,28 +1,28 @@
  -- 1. Sales & Revenue Analysis -----------------------------------------------------
  
  -- 1.1 How much revenue generated throughout the time period?
- SELECT 
+SELECT 
     ROUND(SUM(price + shipping_charges),2) AS total_revenue
 FROM OrderItems;
  
  -- 1.2 What is the total revenue generated per year?
- SELECT 
-    FORMAT(o.order_purchase_timestamp, 'yyyy') AS order_year,
+SELECT 
+    YEAR(o.order_purchase_timestamp) AS order_year,
     ROUND(SUM(oi.price + oi.shipping_charges),2) AS total_revenue
 FROM Orders o
 JOIN OrderItems oi ON o.order_id = oi.order_id
 WHERE o.order_status = 'delivered'
-GROUP BY FORMAT(o.order_purchase_timestamp, 'yyyy')
+GROUP BY YEAR(o.order_purchase_timestamp)
 ORDER BY total_revenue DESC;
 
 -- 1.3 How much revenue generated according to month?
 SELECT 
-    FORMAT(o.order_purchase_timestamp, 'MM') AS order_month,
+    MONTH(o.order_purchase_timestamp) AS order_year,
     ROUND(SUM(oi.price + oi.shipping_charges),2) AS total_revenue
 FROM Orders o
 JOIN OrderItems oi ON o.order_id = oi.order_id
 WHERE o.order_status = 'delivered'
-GROUP BY FORMAT(o.order_purchase_timestamp, 'MM')
+GROUP BY MONTH(o.order_purchase_timestamp)
 ORDER BY total_revenue DESC;
 
 -- 1.4 Which product categories generated the most revenue (Top 10)?
@@ -73,7 +73,7 @@ FROM Customers;
 -- 2.2 How many customers are repeat vs one-time buyers?
 SELECT 
     CASE 
-        WHEN order_count = 1 THEN 'One-Time Buyer'
+        WHEN sub.order_count = 1 THEN 'One-Time Buyer'
         ELSE 'Repeat Buyer'
     END AS customer_type,
     COUNT(*) AS num_customers
@@ -81,10 +81,10 @@ FROM (
     SELECT customer_id, COUNT(order_id) AS order_count
     FROM Orders
     GROUP BY customer_id
-) AS t
+) AS sub
 GROUP BY 
     CASE 
-        WHEN order_count = 1 THEN 'One-Time Buyer'
+        WHEN sub.order_count = 1 THEN 'One-Time Buyer'
         ELSE 'Repeat Buyer'
     END;
 
@@ -100,6 +100,7 @@ SELECT TOP 10
     SUM(price + shipping_charges) AS total_spent
 FROM Orders o
 JOIN OrderItems oi ON o.order_id = oi.order_id
+WHERE o.order_status = 'delivered'
 GROUP BY customer_id
 ORDER BY total_spent DESC;
 
