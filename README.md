@@ -1,4 +1,4 @@
-# 🛒 E-commerce Sales Analysis: SQL + Python Project
+# E-commerce Sales Analysis: SQL + Python Project
 
 ## Project Overview
 
@@ -8,13 +8,13 @@ This project is a complete end-to-end data analysis case study based on real-wor
 ![ER Diagram](https://github.com/ak-2323/E-commerce-Sales-Analysis/blob/main/er-diagram.png)
 ---
 
-## 📦 Requirements
+## Requirements
 
 - **Database**: Microsoft SQL Server (SSMS)
 - **Programming**: Python (for data prep and loading)
 - **Libraries**: `pandas`
 
-## 📁 Project Structure
+## Project Structure
 
 ```plaintext
 |-- data/                     # Raw & cleaned CSV files
@@ -23,7 +23,7 @@ This project is a complete end-to-end data analysis case study based on real-wor
 ```
 ---
 
-## 🔄 Project Workflow
+## Project Workflow
 
 ### 1. Set Up the Environment
    - **Tools Used**: Visual Studio Code (VS Code), Python, SQL (SSMS)
@@ -42,23 +42,23 @@ This project is a complete end-to-end data analysis case study based on real-wor
 
 --- 
 
-## 📊 SQL Business Analysis
+## SQL Business Analysis
 The following analysis is performed entirely within SQL Server using a variety of SQL techniques:
 
-🔹  **Sales & Revenue Analysis:** Analyze revenue growth patterns and understand key revenue drivers using time-based and category-based breakdowns.
+- **Sales & Revenue Analysis:** Analyze revenue growth patterns and understand key revenue drivers using time-based and category-based breakdowns.
 
-🔹  **Customer Insights:** Explore customer behavior, purchasing patterns, and geographic distribution to improve engagement and retention.
+- **Customer Insights:** Explore customer behavior, purchasing patterns, and geographic distribution to improve engagement and retention.
 
-🔹  **Order & Delivery Performance:**
+- **Order & Delivery Performance:**
 Evaluate delivery efficiency and order fulfillment metrics to uncover operational delays and performance gaps.
 
-🔹  **Product-Level Analysis:** Drill down into product performance, inventory characteristics, and category trends to support business decisions.
+- **Product-Level Analysis:** Drill down into product performance, inventory characteristics, and category trends to support business decisions.
 
-🔹  **Payment Insights:** Understand customer preferences in payment methods and their impact on purchasing behavior and revenue.
+- **Payment Insights:** Understand customer preferences in payment methods and their impact on purchasing behavior and revenue.
 
 --- 
 
-## 🧠 Key Insights
+## Key Insights
 Here are some of the key insights collected by applying various SQL concepts:
 
 - **Sales & Revenue Analysis:** Uncovered top-selling categories, high-revenue months and year, and how product vs. shipping charges contribute to total revenue.
@@ -73,13 +73,13 @@ Here are some of the key insights collected by applying various SQL concepts:
 
 --- 
 
-## 📈 Future Enhancements
+## Future Enhancements
 - Connect SQL views to Power BI/Tableau for dashboards.
 - Introduce Python-based machine learning for customer segmentation or demand forecasting.
 
 --- 
 
-## ⚙️ Project Setup
+## Project Setup
 
 1. Clone the Repository
     ```
@@ -88,11 +88,11 @@ Here are some of the key insights collected by applying various SQL concepts:
     ```
 --- 
 
-## 📜 License
+## License
 This project is licensed under the MIT License.
 
 ---
 
-## 🙌 Acknowledgments
+## Acknowledgments
 - **Dataset**: Inspired by e-commerce transactional structures
 - **Inspiration**: Real-world business analysis case study
